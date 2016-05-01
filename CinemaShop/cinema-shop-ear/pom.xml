@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.my.homework</groupId>
+        <artifactId>cinema-shop</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>cinema-shop-ear</artifactId>
+    <packaging>ear</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>cinema-shop-webapp</artifactId>
+            <version>${project.version}</version>
+            <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>cinema-shop-app</artifactId>
+            <version>${project.version}</version>
+            <type>ejb</type>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>CinemaShop</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ear-plugin</artifactId>
+                <version>2.10.1</version>
+                <configuration>
+                    <version>7</version>
+                    <defaultLibBundleDir>APP-INF/lib</defaultLibBundleDir>
+                    <skinnyWars>true</skinnyWars>
+                    <useBaseVersion>true</useBaseVersion>
+                    <modules>
+                        <webModule>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>cinema-shop-webapp</artifactId>
+                            <unpack>true</unpack>
+                            <bundleFileName>CinemaShop.war</bundleFileName>
+                            <contextRoot>/cinemashop</contextRoot>
+                        </webModule>
+                        <ejbModule>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>cinema-shop-app</artifactId>
+                        </ejbModule>
+                    </modules>
+                    <earSourceExcludes>
+                    </earSourceExcludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    
+</project>

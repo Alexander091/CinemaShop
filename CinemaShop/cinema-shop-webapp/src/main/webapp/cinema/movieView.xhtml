@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+</h:head>
+<h:body>
+    <ui:composition template="/templates/layout.xhtml">
+        <ui:define name="content">
+            <h:form id="showingForm">
+                <p:outputLabel for="start" value="Datetime:"/>
+                <p:calendar id="start" value="#{cinemaManagerController.currentDate}" pattern="MM/dd/yyyy">
+                    <p:ajax event="dateSelect" update="movieShowingsTable"/>
+                    <!--<f:ajax event="change" execute="@this" render="movieShowingsTable"/>-->
+                </p:calendar>
+
+                <p:dataTable id="movieShowingsTable" var="movie" value="#{cinemaManagerController.moviesByShowingDate}"
+                             rows="10"
+                             selectionMode="single"
+                             rowKey="#{movie.id}"
+                             selection="#{cinemaManagerController.selectedEntity}"
+                             paginator="true"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15">
+
+                    <p:ajax event="rowSelect" listener="#{cinemaManagerController.goToShowingView}"/>
+
+                    <p:column headerText="Id" style="display: none">
+                        <h:outputText value="#{movie.id}"/>
+                    </p:column>
+
+                    <p:column headerText="Title">
+                            <h:outputText value="#{movie.title}"/>
+                    </p:column>
+
+                    <p:column headerText="Year">
+                        <h:outputText value="#{movie.yearOfProduction}"/>
+                    </p:column>
+
+                    <p:column headerText="Duration">
+                        <h:outputText value="#{movie.duration}"/>
+                    </p:column>
+
+                    <p:column headerText="Description">
+                        <h:outputText value="#{movie.description}"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

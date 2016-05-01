@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<f:metadata>
+    <f:viewParam name="showingId" value="#{ticketController.showingId}" />
+</f:metadata>
+<h:body>
+
+    <ui:composition template="/templates/layout.xhtml">
+        <ui:define name="content">
+            <h:form id="showingForm">
+                #{ticketController.showing.hall.name}
+                <table class="order-table">
+                    <tbody>
+                        <ui:repeat var="hallRow" value="#{ticketController.showing.hall.hallRows}">
+                            <tr>
+                                <td>
+                                    #{hallRow.name}
+                                </td>
+                                <ui:repeat var="seat" value="#{hallRow.seats}">
+                                    <td>
+                                        <h:commandButton value="#{seat.name}" ajax="false" disabled="#{!(ticketController.isEnable(seat.id))}" styleClass="ui-priority-primary" actionListener="#{ticketController.buyTicket(seat.id)}"/>
+                                    </td>
+                                </ui:repeat>
+                            </tr>
+                        </ui:repeat>
+                    </tbody>
+                </table>
+                <!--<p:selectManyButton value="#{ticketController.selectedTickets}">-->
+                    <!--<ui:repeat var="hallRow" value="#{ticketController.showing.hall.hallRows}">-->
+                        <!--<ui:repeat var="seat" value="#{hallRow.seats}">-->
+                            <!--<f:selectItem itemLabel="#{seat.name}" itemValue="#{seat.id}" />-->
+                        <!--</ui:repeat>-->
+                    <!--</ui:repeat>-->
+                <!--</p:selectManyButton>-->
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>
