@@ -88,7 +88,8 @@
                                    itemValue="#{movie.id}" />
                 </p:selectOneMenu>
 
-
+                <h:outputLabel for="price" value="Price:"/>
+                <p:inputText id="price" value="#{creatorShowingController.price}" label="price"/>
 
                 <f:facet name="footer">
                     <p:commandButton value="Save" update="@([id$=showingsTable])"

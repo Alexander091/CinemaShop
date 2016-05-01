@@ -15,7 +15,7 @@
     <ui:composition template="/templates/layout.xhtml">
         <ui:define name="content">
             <h:outputStylesheet library="css" name="style.css"  />
-            <h:form id="showingForm">
+            <h:form id="showingForm" class="ticket">
                 #{ticketController.showing.hall.name}
                 <table class="order-table">
                     <tbody>
@@ -38,8 +38,40 @@
                         </ui:repeat>
                     </tbody>
                 </table>
-                <p:commandButton value="Buy Ticket" id="nonAjax" actionListener="#{ticketController.buyTickets}" ajax="true" update="@([id$=showingForm])"/>
+                <p:commandButton icon="ui-icon-extlink" value="Buy Ticket"
+                                 oncomplete="PF('dlg').show();"
+                                 update="@([id$=ticketFormDialog])"/>
+
             </h:form>
+
+            <h:form class="ticket" id="ticketFormDialog">
+                <p:dialog header="ticketForm" widgetVar="dlg" resizable="false">
+                    <p:ajax event="close" update="@([id$=ticketFormDialog])" listener="#{ticketController.handleClose}"/>
+                    <h:panelGrid columns="2" cellpadding="5">
+
+                        <h:outputLabel for="totalPrice" value="Price:"/>
+                        <h:outputLabel id="totalPrice" value="#{ticketController.getTotalPrice()}" label="totalPrice"/>
+
+                        <h:outputLabel for="totalTickets" value="Total tickets:"/>
+                        <h:outputLabel id="totalTickets" value="#{ticketController.getSeatIds().size()}" label="totalTickets"/>
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Buy Ticket"
+                                             actionListener="#{ticketController.buyTickets}"
+                                             ajax="true"
+                                             update="@(.ticket)"
+                                             oncomplete="handleLoginRequest(xhr, status, args)"/>
+
+                        </f:facet>
+                    </h:panelGrid>
+                </p:dialog>
+            </h:form>
+            <script type="text/javascript">
+                function handleLoginRequest(xhr, status, args) {
+                    PF('dlg').hide();
+                    $('#ticketFormLink').fadeOut();
+                }
+            </script>
         </ui:define>
     </ui:composition>
 </h:body>

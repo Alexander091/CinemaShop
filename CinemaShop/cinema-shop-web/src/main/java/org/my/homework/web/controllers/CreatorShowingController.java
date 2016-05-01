@@ -21,6 +21,8 @@ public class CreatorShowingController{
     private Long hallId;
     private Long movieId;
     private String id;
+    private String price;
+
     @EJB
     private CommonDAO commonDAO;
 
@@ -68,6 +70,7 @@ public class CreatorShowingController{
         showing.setStart(start);
         showing.setHall(hall);
         showing.setMovie(movie);
+        showing.setPrice(Integer.parseInt(price));
 
         clearField();
         return showing;
@@ -77,6 +80,7 @@ public class CreatorShowingController{
         hallId = null;
         movieId = null;
         start = null;
+        price = "0";
     }
 
     public void setShowing(Showing showing) {
@@ -88,5 +92,13 @@ public class CreatorShowingController{
 
     public void handleClose(CloseEvent event) {
         clearField();
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 }

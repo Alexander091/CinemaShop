@@ -4,6 +4,7 @@ import org.my.homework.app.dao.CommonDAO;
 import org.my.homework.app.entities.Hall;
 import org.my.homework.app.entities.Showing;
 import org.my.homework.app.entities.Ticket;
+import org.primefaces.event.CloseEvent;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -26,7 +27,6 @@ public class TicketController{
     private Long showingId;
     @EJB
     private CommonDAO commonDAO;
-    private List<Long> selectedTickets;
     private Set<Long> seatIds = new HashSet<Long>();
 
     public void setShowingId(Long showingId) {
@@ -34,6 +34,13 @@ public class TicketController{
         showing = (Showing) commonDAO.getByIdByClass(showingId, Showing.class);
     }
 
+    public Set<Long> getSeatIds() {
+        return seatIds;
+    }
+
+    public void setSeatIds(Set<Long> seatIds) {
+        this.seatIds = seatIds;
+    }
 
     public Long getShowingId() {
         return showingId;
@@ -47,13 +54,6 @@ public class TicketController{
         this.showing = showing;
     }
 
-    public void setSelectedTickets(List<Long> selectedTickets) {
-        this.selectedTickets = selectedTickets;
-    }
-
-    public List<Long> getSelectedTickets() {
-        return selectedTickets;
-    }
 
     public void buyTickets(ActionEvent actionEvent){
         List<Ticket> tickets = new ArrayList<Ticket>();
@@ -91,6 +91,14 @@ public class TicketController{
 
     public boolean isReservedTicket(Long seatId){
         return seatIds.contains(seatId);
+    }
+
+    public int getTotalPrice(){
+        return showing.getPrice() * seatIds.size();
+    }
+
+    public void handleClose(CloseEvent event) {
+
     }
 
 }

@@ -71,8 +71,8 @@ public class CreatorCinemaController{
         }
         movie.setDescription(description);
         movie.setTitle(title);
-        movie.setDuration(Integer.parseInt(duration));
-        movie.setYearOfProduction(Integer.parseInt(year));
+        movie.setDuration(Integer.valueOf(duration));
+        movie.setYearOfProduction(Integer.valueOf(year));
 
         clearField();
         return movie;

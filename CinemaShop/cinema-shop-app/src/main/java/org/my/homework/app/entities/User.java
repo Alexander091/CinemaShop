@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "users")
-public class User extends CommonEntity {
+public class User extends CommonEntity implements IUser {
 
     private String login;
     private String password;

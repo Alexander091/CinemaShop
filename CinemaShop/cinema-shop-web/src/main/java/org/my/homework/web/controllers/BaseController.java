@@ -56,6 +56,8 @@ public class BaseController {
 
     public void jaasLogout() throws IOException {
         user = null;
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.getExternalContext().getSessionMap().put("user", null);
         FacesContext
                 .getCurrentInstance()
                 .getExternalContext()
@@ -68,6 +70,8 @@ public class BaseController {
         User user = authDAO.getUserByLoginAndPassword(login, hashedPassword);
 //        securityBean.setUser(user);
         this.user = user;
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.getExternalContext().getSessionMap().put("user", user);
         if(user != null) {
             FacesContext.getCurrentInstance().getExternalContext().redirect("/cinemashop/faces/index.xhtml");
         }

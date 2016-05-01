@@ -18,6 +18,7 @@ public class Showing extends CommonEntity {
     private Movie movie;
     private Date start;
     private List<Ticket> tickets;
+    private int price;
 
     @ManyToOne
     @JoinColumn(name = "hall_id")
@@ -59,4 +60,13 @@ public class Showing extends CommonEntity {
         this.tickets = tickets;
     }
 
+    @Basic
+    @Column(name="price")
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
 }

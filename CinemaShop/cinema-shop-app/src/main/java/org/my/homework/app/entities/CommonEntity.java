@@ -10,7 +10,7 @@ import java.io.Serializable;
  */
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class CommonEntity implements Serializable {
+public class CommonEntity implements Serializable , ICommonEntity{
     private Long id;
 
     @Id
