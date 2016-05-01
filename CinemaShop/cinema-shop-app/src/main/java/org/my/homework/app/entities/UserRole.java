@@ -5,6 +5,7 @@ import javax.persistence.*;
 /**
  * Created by Alexander on 01-May-16.
  */
+
 @Entity
 @Table(name = "users_roles")
 public class UserRole extends CommonEntity{

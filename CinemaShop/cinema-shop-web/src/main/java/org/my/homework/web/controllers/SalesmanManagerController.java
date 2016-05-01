@@ -2,10 +2,7 @@ package org.my.homework.web.controllers;
 
 import org.my.homework.app.dao.AuthDAO;
 import org.my.homework.app.dao.CommonDAO;
-import org.my.homework.app.entities.IUser;
-import org.my.homework.app.entities.Showing;
-import org.my.homework.app.entities.User;
-import org.my.homework.app.entities.UserNamedQuery;
+import org.my.homework.app.entities.*;
 import org.primefaces.context.RequestContext;
 
 import javax.annotation.PostConstruct;
@@ -58,6 +55,11 @@ public class SalesmanManagerController extends BaseTableController{
 
         salesmans.add(entity);
         commonDAO.saveOrUpdate(entity);
+        UserRole userRole = new UserRole();
+        Role salesRole = authDAO.getSalesmanRole();
+        userRole.setRole(salesRole);
+        userRole.setUser(entity);
+        commonDAO.saveOrUpdate(userRole);
 
         canSave = true;
         RequestContext context = RequestContext.getCurrentInstance();

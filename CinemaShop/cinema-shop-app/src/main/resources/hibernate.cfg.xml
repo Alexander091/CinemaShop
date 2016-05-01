@@ -29,7 +29,6 @@
       <mapping class="org.my.homework.app.entities.User"/>
       <mapping class="org.my.homework.app.entities.UserRole"/>
       <mapping class="org.my.homework.app.entities.Role"/>
-      <mapping class="org.my.homework.app.entities.UserNamedQuery"/>
 
   </session-factory>
 </hibernate-configuration>

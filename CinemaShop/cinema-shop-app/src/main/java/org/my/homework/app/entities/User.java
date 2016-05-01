@@ -10,6 +10,12 @@ import java.util.List;
  * Created by Alexander on 01-May-16.
  */
 @Entity
+@NamedQueries(
+        @NamedQuery(
+                name = "getSalesmans",
+                query = "FROM User where id != :currentUser"
+        )
+)
 @Table(name = "users")
 public class User extends CommonEntity implements IUser {
 

@@ -26,18 +26,22 @@
                                 </td>
                                 <ui:repeat var="seat" value="#{hallRow.seats}">
                                     <td>
-                                        <p:commandButton value="#{seat.name}"
+                                        <p:commandButton class="ticketUpdate" value="#{seat.name}"
                                                          ajax="true"
                                                          disabled="#{!(ticketController.isEnable(seat.id))}"
                                                          styleClass="#{ticketController.isReservedTicket(seat.id) ? 'reservedTicketButton' : 'freeTicketButton'}"
                                                          actionListener="#{ticketController.prepareToByTicket(seat.id)}"
-                                                         update="@this"/>
+                                                         update="@(.ticketUpdate) @this"/>
                                     </td>
                                 </ui:repeat>
                             </tr>
                         </ui:repeat>
                     </tbody>
                 </table>
+                <div>
+                    <h:outputLabel for="totalPriceOnPage" value="To pay:"/>
+                    <h:outputLabel class="ticketUpdate" id="totalPriceOnPage" value="#{ticketController.getTotalPrice()}" label="totalPriceOnPage"/>
+                </div>
                 <p:commandButton icon="ui-icon-extlink" value="Buy Ticket"
                                  oncomplete="PF('dlg').show();"
                                  update="@([id$=ticketFormDialog])"/>
@@ -56,12 +60,15 @@
                         <h:outputLabel id="totalTickets" value="#{ticketController.getSeatIds().size()}" label="totalTickets"/>
 
                         <f:facet name="footer">
-                            <p:commandButton value="Buy Ticket"
+                            <p:commandButton value="Accept"
                                              actionListener="#{ticketController.buyTickets}"
                                              ajax="true"
                                              update="@(.ticket)"
                                              oncomplete="handleLoginRequest(xhr, status, args)"/>
-
+                            <p:commandButton value="Cancel"
+                                             ajax="true"
+                                             update="@(.ticket)"
+                                             oncomplete="handleLoginRequest(xhr, status, args)"/>
                         </f:facet>
                     </h:panelGrid>
                 </p:dialog>

@@ -10,7 +10,9 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -55,7 +57,7 @@ public class TicketController{
     }
 
 
-    public void buyTickets(ActionEvent actionEvent){
+    public void buyTickets(ActionEvent actionEvent) throws IOException {
         List<Ticket> tickets = new ArrayList<Ticket>();
         for (Long seatId : seatIds) {
             Ticket ticket = new Ticket();
@@ -68,6 +70,10 @@ public class TicketController{
         commonDAO.saveOrUpdate(tickets);
         showing.getTickets().addAll(tickets);
         seatIds.clear();
+        FacesContext
+                .getCurrentInstance()
+                .getExternalContext()
+                .redirect("/cinemashop/faces/cinema/movieView.xhtml");
     }
     public void prepareToByTicket(Long currentSeatId){
         if(isReservedTicket(currentSeatId)){

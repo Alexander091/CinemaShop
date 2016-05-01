@@ -5,8 +5,8 @@ import org.hibernate.Session;
 import org.my.homework.app.dao.AuthDAO;
 import org.my.homework.app.entities.CommonEntity;
 import org.my.homework.app.entities.IUser;
+import org.my.homework.app.entities.Role;
 import org.my.homework.app.entities.User;
-import org.my.homework.app.entities.UserNamedQuery;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
@@ -43,5 +43,19 @@ public class AuthDAOImpl extends CommonDAOImpl<CommonEntity> implements AuthDAO 
         List<IUser> userNamedQueries = session.getNamedQuery("getSalesmans").setParameter("currentUser", currentUser).list();
         session.close();
         return userNamedQueries;
+    }
+
+    @Override
+    public Role getSalesmanRole() {
+        Session session = sessionFactory.openSession();
+        List<Role> result = session.getNamedQuery("getSalesmanRole").list();
+        session.close();
+        Role role = null;
+        if (result != null && result.size() != 0){
+            if (result.size() == 1){
+                role = result.get(0);
+            }
+        }
+        return role;
     }
 }
