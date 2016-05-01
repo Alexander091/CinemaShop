@@ -4,6 +4,7 @@ import org.my.homework.app.dao.CommonDAO;
 import org.my.homework.app.entities.Hall;
 import org.my.homework.app.entities.Movie;
 import org.my.homework.app.entities.Showing;
+import org.primefaces.event.CloseEvent;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -19,7 +20,7 @@ public class CreatorShowingController {
     private Date start;
     private Long hallId;
     private Long movieId;
-
+    private String id;
     @EJB
     private CommonDAO commonDAO;
 
@@ -47,12 +48,23 @@ public class CreatorShowingController {
         return movieId;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
     public Showing save(){
         Showing showing = new Showing();
 
         Movie movie = (Movie) commonDAO.getByIdByClass(movieId, Movie.class);
         Hall hall = (Hall) commonDAO.getByIdByClass(hallId, Hall.class);;
 
+        if(id != null && !id.isEmpty()) {
+            showing.setId(new Long(id));
+        }
         showing.setStart(start);
         showing.setHall(hall);
         showing.setMovie(movie);
@@ -67,5 +79,14 @@ public class CreatorShowingController {
         start = null;
     }
 
+    public void setShowing(Showing showing) {
+        id = showing.getId().toString();
+        hallId = showing.getHall().getId();
+        movieId = showing.getMovie().getId();
+        start = showing.getStart();
+    }
 
+    public void handleClose(CloseEvent event) {
+        clearField();
+    }
 }

@@ -3,6 +3,7 @@ package org.my.homework.web.controllers;
 import org.my.homework.app.dao.MovieDAO;
 import org.my.homework.app.entities.Movie;
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.CloseEvent;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -21,6 +22,7 @@ public class CreatorCinemaController {
     private String year;
     private String duration;
     private String description;
+    private String id;
 
     public void setTitle(String title) {
         this.title = title;
@@ -54,13 +56,23 @@ public class CreatorCinemaController {
         return description;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public Movie save(){
         Movie movie = new Movie();
-
+        if(id != null && !id.isEmpty()) {
+            movie.setId(new Long(id));
+        }
         movie.setDescription(description);
         movie.setTitle(title);
-        movie.setDuration(Integer.valueOf(duration));
-        movie.setYearOfProduction(Integer.valueOf(year));
+        movie.setDuration(Integer.parseInt(duration));
+        movie.setYearOfProduction(Integer.parseInt(year));
 
         clearField();
         return movie;
@@ -71,5 +83,17 @@ public class CreatorCinemaController {
         title = null;
         duration = null;
         year = null;
+    }
+
+    public void setMovie(Movie movie) {
+        id = movie.getId().toString();
+        description = movie.getDescription();
+        title = movie.getTitle();
+        duration = String.valueOf(movie.getDuration());
+        year = String.valueOf(movie.getYearOfProduction());
+    }
+
+    public void handleClose(CloseEvent event) {
+        clearField();
     }
 }

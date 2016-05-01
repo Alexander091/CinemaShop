@@ -7,7 +7,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:body>
-    <h:form id="moviesForm">
+    <h:form class="movie" id="moviesForm">
         <p:growl id="growldel" life="2000"/>
         <p:growl id="msgs" showDetail="true"/>
 
@@ -15,6 +15,10 @@
                          actionListener="#{cinemaManagerController.onDeleteRow()}" ajax="true"
                          update="moviesTable"/>
         <p:commandButton icon="ui-icon-extlink" value="Add Movie" onclick="PF('dlg').show();"/>
+        <p:commandButton icon="ui-icon-extlink" value="Edit Movie"
+                         action="#{creatorCinemaController.setMovie(cinemaManagerController.getSelectedEntity())}"
+                         oncomplete="PF('dlg').show();"
+                         update="@([id$=movieFormDialog])"/>
 
         <p:dataTable id="moviesTable" var="movieId" value="#{cinemaManagerController.movies}" rows="10"
                      selectionMode="single"
@@ -23,6 +27,7 @@
                      paginator="true"
                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                      rowsPerPageTemplate="5,10,15">
+            <p:ajax event="rowSelect" listener="#{cinemaManagerController.onRowSelect}"/>
             <p:column headerText="Id" style="display: none">
                 <h:outputText value="#{movieId.id}"/>
             </p:column>
@@ -45,9 +50,14 @@
 
 
     </h:form>
-    <h:form id="movieFormDialog">
+    <h:form class="movie" id="movieFormDialog">
         <p:dialog header="movieForm" widgetVar="dlg" resizable="false">
+            <p:ajax event="close" update="@([id$=movieFormDialog])" listener="#{creatorCinemaController.handleClose}"/>
             <h:panelGrid columns="2" cellpadding="5">
+
+                <h:outputLabel for="cinemaId" style="display: none"/>
+                <p:inputText id="cinemaId" style="display: none" value="#{creatorCinemaController.id}" label="cinemaId"/>
+
                 <h:outputLabel for="title" value="Title:"/>
                 <p:inputText id="title" value="#{creatorCinemaController.title}" required="true" label="title"/>
 
@@ -65,11 +75,9 @@
                 <h:outputText id="display"/>
 
                 <f:facet name="footer">
-                    <p:commandButton value="Save" update="@([id$=moviesTable])"
+                    <p:commandButton value="Save" update="@(.movie)"
                                      actionListener="#{cinemaManagerController.onSaveRow(creatorCinemaController.save())}"
-                                     oncomplete="handleLoginRequest(xhr, status, args)">
-                        <!--<p:ajax update=":form" />-->
-                    </p:commandButton>
+                                     oncomplete="handleLoginRequest(xhr, status, args)"/>
                 </f:facet>
             </h:panelGrid>
         </p:dialog>

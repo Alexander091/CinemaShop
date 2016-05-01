@@ -12,9 +12,9 @@
     <f:viewParam name="showingId" value="#{ticketController.showingId}" />
 </f:metadata>
 <h:body>
-
     <ui:composition template="/templates/layout.xhtml">
         <ui:define name="content">
+            <h:outputStylesheet library="css" name="style.css"  />
             <h:form id="showingForm">
                 #{ticketController.showing.hall.name}
                 <table class="order-table">
@@ -26,20 +26,19 @@
                                 </td>
                                 <ui:repeat var="seat" value="#{hallRow.seats}">
                                     <td>
-                                        <h:commandButton value="#{seat.name}" ajax="false" disabled="#{!(ticketController.isEnable(seat.id))}" styleClass="ui-priority-primary" actionListener="#{ticketController.buyTicket(seat.id)}"/>
+                                        <p:commandButton value="#{seat.name}"
+                                                         ajax="true"
+                                                         disabled="#{!(ticketController.isEnable(seat.id))}"
+                                                         styleClass="#{ticketController.isReservedTicket(seat.id) ? 'reservedTicketButton' : 'freeTicketButton'}"
+                                                         actionListener="#{ticketController.prepareToByTicket(seat.id)}"
+                                                         update="@this"/>
                                     </td>
                                 </ui:repeat>
                             </tr>
                         </ui:repeat>
                     </tbody>
                 </table>
-                <!--<p:selectManyButton value="#{ticketController.selectedTickets}">-->
-                    <!--<ui:repeat var="hallRow" value="#{ticketController.showing.hall.hallRows}">-->
-                        <!--<ui:repeat var="seat" value="#{hallRow.seats}">-->
-                            <!--<f:selectItem itemLabel="#{seat.name}" itemValue="#{seat.id}" />-->
-                        <!--</ui:repeat>-->
-                    <!--</ui:repeat>-->
-                <!--</p:selectManyButton>-->
+                <p:commandButton value="Buy Ticket" id="nonAjax" actionListener="#{ticketController.buyTickets}" ajax="true" update="@([id$=showingForm])"/>
             </h:form>
         </ui:define>
     </ui:composition>

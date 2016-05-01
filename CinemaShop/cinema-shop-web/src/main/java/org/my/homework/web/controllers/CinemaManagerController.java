@@ -65,8 +65,12 @@ public class CinemaManagerController extends BaseTableController<Movie>{
         boolean canSave = false;
         FacesMessage message = null;
 
+        if(entity.getId() != null){
+            findAndReplaceEntityById(entity);
+        } else {
+            movies.add(entity);
+        }
         commonDAO.saveOrUpdate(entity);
-        movies.add(entity);
 
         canSave = true;
         RequestContext context = RequestContext.getCurrentInstance();
@@ -92,5 +96,17 @@ public class CinemaManagerController extends BaseTableController<Movie>{
                 .getCurrentInstance()
                 .getExternalContext()
                 .redirect("/cinemashop/faces/cinema/showingView.xhtml?movieId=" + getSelectedEntity().getId()+"&currentDate=" + dateString);
+    }
+
+    private void findAndReplaceEntityById(Movie updatedEntity){
+        for (Movie entity: movies) {
+            if(entity.getId().equals(updatedEntity.getId())) {
+                entity.setYearOfProduction(updatedEntity.getYearOfProduction());
+                entity.setDuration(updatedEntity.getDuration());
+                entity.setTitle(updatedEntity.getTitle());
+                entity.setDescription(updatedEntity.getDescription());
+                break;
+            }
+        }
     }
 }

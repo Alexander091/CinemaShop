@@ -16,6 +16,10 @@
                          actionListener="#{showingManagerController.onDeleteRow()}" ajax="true"
                          update="showingsTable"/>
         <p:commandButton icon="ui-icon-extlink" value="Add Showing" onclick="PF('dlg').show();"/>
+        <p:commandButton icon="ui-icon-extlink" value="Edit Showing"
+                         action="#{creatorShowingController.setShowing(showingManagerController.getSelectedEntity())}"
+                         oncomplete="PF('dlg').show();"
+                         update="@([id$=showingFormDialog])"/>
 
         <p:dataTable id="showingsTable" var="showing" value="#{showingManagerController.showings}" rows="10"
                      selectionMode="single"
@@ -24,6 +28,7 @@
                      paginator="true"
                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                      rowsPerPageTemplate="5,10,15">
+            <p:ajax event="rowSelect" listener="#{showingManagerController.onRowSelect}"/>
             <p:column headerText="Id" style="display: none">
                 <h:outputText value="#{showing.id}"/>
             </p:column>
@@ -46,10 +51,13 @@
     </h:form>
     <h:form id="showingFormDialog">
         <p:dialog header="showingForm" widgetVar="dlg" resizable="false">
+            <p:ajax event="close" update="@([id$=showingFormDialog])" listener="#{creatorShowingController.handleClose}"/>
             <h:panelGrid columns="2" cellpadding="5">
 
-                <h:outputLabel for="hall" value="Hall:"/>
+                <h:outputLabel for="showingId" style="display: none"/>
+                <p:inputText id="showingId" style="display: none" value="#{creatorShowingController.id}" label="showingId"/>
 
+                <h:outputLabel for="hall" value="Hall:"/>
                 <p:selectOneMenu id="hall"
                                  panelStyle="width:180px"
                                  effect="fade"

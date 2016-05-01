@@ -42,6 +42,17 @@ public class CommonDAOImpl<T extends CommonEntity> implements CommonDAO<T> {
         session.close();
     }
 
+    @Override
+    public void saveOrUpdate(List<CommonEntity> objects) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        for (CommonEntity entity : objects) {
+            session.saveOrUpdate(entity);
+        }
+        session.getTransaction().commit();
+        session.close();
+    }
+
     public List<T> getAll(){
 //        Session session = sessionFactory.openSession();
 //        List<T> result = session.createCriteria(type).list();

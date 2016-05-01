@@ -59,15 +59,18 @@ public class ShowingManagerController extends BaseTableController<Showing> {
         boolean canSave = false;
         FacesMessage message = null;
 
+        if(entity.getId() != null){
+            findAndReplaceEntityById(entity);
+        } else {
+            showings.add(entity);
+        }
         commonDAO.saveOrUpdate(entity);
-        showings.add(entity);
 
         canSave = true;
         RequestContext context = RequestContext.getCurrentInstance();
         message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Saved successfully", "");
         FacesContext.getCurrentInstance().addMessage(null, message);
         context.addCallbackParam("saveResult", canSave);
-
     }
 
     public List<Hall> getAllHalls(){
@@ -88,5 +91,16 @@ public class ShowingManagerController extends BaseTableController<Showing> {
                 .getCurrentInstance()
                 .getExternalContext()
                 .redirect("/cinemashop/faces/cinema/ticketView.xhtml?showingId=" + getSelectedEntity().getId());
+    }
+
+    private void findAndReplaceEntityById(Showing updatedEntity){
+        for (Showing entity: showings) {
+            if(entity.getId().equals(updatedEntity.getId())) {
+                entity.setHall(updatedEntity.getHall());
+                entity.setMovie(updatedEntity.getMovie());
+                entity.setStart(updatedEntity.getStart());
+                break;
+            }
+        }
     }
 }

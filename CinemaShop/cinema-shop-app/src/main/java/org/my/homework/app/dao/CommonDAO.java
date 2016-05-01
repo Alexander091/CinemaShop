@@ -9,6 +9,7 @@ import java.util.List;
 public interface CommonDAO<T extends CommonEntity> {
     T getById(Long id);
     void saveOrUpdate(CommonEntity object);
+    void saveOrUpdate(List<CommonEntity> objects);
     List<T> getAll();
     List <? extends CommonEntity> getAllByClass(Class<? super CommonEntity> clazz);
     void delete(CommonEntity object);
