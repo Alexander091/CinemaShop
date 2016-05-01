@@ -20,7 +20,6 @@ import java.util.List;
 @Local(MovieDAO.class)
 public class MovieDAOImpl extends CommonDAOImpl<Movie> implements MovieDAO {
 
-    private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
     @Override
     public List<Movie> moviesByShowingDate(Date date) {
         Session session = sessionFactory.openSession();

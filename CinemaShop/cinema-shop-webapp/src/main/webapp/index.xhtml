@@ -4,13 +4,26 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
 <h:head>
     <title>Welcome to Cinema Shop!</title>
 </h:head>
 <h:body>
     <ui:insert name="content">
-        <ui:include src="/cinema-editor/cinemaManager.xhtml"/>
+        <c:choose>
+            <c:when test="#{baseController.hasUserSalesmanRole()}">
+                <ui:include src="/cinema/movieView.xhtml"/>
+            </c:when>
+            <c:when test="#{baseController.hasUserManagerRole()}">
+                <ui:include src="/cinema-editor/cinemaManager.xhtml"/>
+            </c:when>
+            <c:otherwise>
+
+            </c:otherwise>
+        </c:choose>
+
     </ui:insert>
 </h:body>
 </html>

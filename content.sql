@@ -68,3 +68,16 @@ INSERT INTO SEATS (ID, HALL_ROW_ID, NAME) VALUES (57, 5, '7');
 INSERT INTO SEATS (ID, HALL_ROW_ID, NAME) VALUES (58, 5, '8');
 INSERT INTO SEATS (ID, HALL_ROW_ID, NAME) VALUES (59, 5, '9');
 INSERT INTO SEATS (ID, HALL_ROW_ID, NAME) VALUES (60,5, '10');
+
+
+
+INSERT INTO public.users(id, login, password) VALUES (1, 'salesman', '3dcedf90013a36685c8864d9feea619122bb95d1a5f45fca8993c535a98932b3');
+INSERT INTO public.users(id, login, password) VALUES (2, 'manager', '6ee4a469cd4e91053847f5d3fcb61dbcc91e8f0ef10be7748da4c4a1ba382d17');
+
+INSERT INTO public.roles(id, name) VALUES (1, 'salesman');
+INSERT INTO public.roles(id, name) VALUES (2, 'manager');
+
+INSERT INTO public.users_roles(user_id, role_id, id) VALUES (1, 1, 1);
+INSERT INTO public.users_roles(user_id, role_id, id) VALUES (2, 1, 2);
+INSERT INTO public.users_roles(user_id, role_id, id) VALUES (2, 2, 3);
+

@@ -82,3 +82,5 @@ CREATE TABLE  users_roles
   CONSTRAINT user_roles_USERS_USER_ID_fk FOREIGN KEY (user_id) REFERENCES USERS (ID),
   CONSTRAINT user_roles_ROLES_ROLE_ID_fk FOREIGN KEY (role_id) REFERENCES ROLES (ID)
 );
+ ALTER TABLE users_roles ADD COLUMN id BIGINT PRIMARY KEY NOT NULL;
+   CREATE UNIQUE INDEX "usersroles_id_uindex" ON  users (id);

@@ -7,7 +7,7 @@
 
     <display-name>Cinema Shop</display-name>
     <welcome-file-list>
-        <welcome-file>faces/index.xhtml</welcome-file>
+        <welcome-file>faces/authorization/login.xhtml</welcome-file>
     </welcome-file-list>
 
     <context-param>

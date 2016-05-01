@@ -8,7 +8,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:body>
     <p:button outcome="/index.xhtml" value="Home" icon="ui-icon-star"/>
-    <p:button outcome="/cinema/movieView.xhtml" value="Cinema Shop" icon="ui-icon-wrench"/>
-    <p:button outcome="/cinema-editor/cinemaManager.xhtml" value="Cinema Manager" icon="ui-icon-wrench"/>
+    <p:button outcome="/cinema/movieView.xhtml" value="Cinema Shop" icon="ui-icon-wrench" rendered="#{baseController.hasUserSalesmanRole()}"/>
+    <p:button outcome="/cinema-editor/cinemaManager.xhtml" value="Cinema Manager" icon="ui-icon-wrench" rendered="#{baseController.hasUserManagerRole()}"/>
 </h:body>
 </html>

@@ -26,6 +26,9 @@
       <mapping class="org.my.homework.app.entities.Seat"/>
       <mapping class="org.my.homework.app.entities.Showing"/>
       <mapping class="org.my.homework.app.entities.Ticket"/>
+      <mapping class="org.my.homework.app.entities.User"/>
+      <mapping class="org.my.homework.app.entities.UserRole"/>
+      <mapping class="org.my.homework.app.entities.Role"/>
 
   </session-factory>
 </hibernate-configuration>

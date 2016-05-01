@@ -20,7 +20,7 @@ import java.util.Set;
  */
 @ManagedBean(name = "ticketController")
 @ViewScoped
-public class TicketController {
+public class TicketController{
 
     private Showing showing;
     private Long showingId;

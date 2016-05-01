@@ -20,7 +20,6 @@ import java.util.List;
 @Local(ShowingDAO.class)
 public class ShowingDAOImpl extends CommonDAOImpl<Showing> {
 
-    private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
     public List<Showing> getShowingByShowingDateAndMovieId(Date date, Long movieId) {
         Session session = sessionFactory.openSession();

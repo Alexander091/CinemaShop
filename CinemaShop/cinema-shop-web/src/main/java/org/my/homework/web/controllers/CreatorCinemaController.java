@@ -17,7 +17,7 @@ import javax.inject.Named;
  * Created by Alexander on 30-Apr-16.
  */
 @ManagedBean(name = "creatorCinemaController")
-public class CreatorCinemaController {
+public class CreatorCinemaController{
     private String title;
     private String year;
     private String duration;

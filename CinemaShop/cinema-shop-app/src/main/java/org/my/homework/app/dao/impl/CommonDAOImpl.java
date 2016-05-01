@@ -19,7 +19,7 @@ import java.util.List;
 @Local(CommonDAO.class)
 public class CommonDAOImpl<T extends CommonEntity> implements CommonDAO<T> {
 //    private Class<T> type;
-    private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+    SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
     public CommonDAOImpl(){
 //        Type t = getClass().getGenericSuperclass();

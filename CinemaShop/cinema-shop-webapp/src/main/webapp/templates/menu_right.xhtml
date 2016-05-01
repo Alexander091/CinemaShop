@@ -9,12 +9,12 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:body>
     <c:choose>
-        <c:when test="#{loginController.getJaasUser() == null}">
-            <p:button outcome="/quest-storage/storage.xhtml" value="Login" icon="ui-icon-key"/>
+        <c:when test="#{baseController.getUserName() == null}">
+            <p:button outcome="/authorization/login.xhtml" value="Login" icon="ui-icon-key"/>
         </c:when>
         <c:otherwise>
-            <p:commandButton value="#{loginController.getJaasUser()}"/>
-            <p:commandButton action="#{loginController.jaasLogout()}"
+            <p:commandButton value="#{baseController.getUserName()}"/>
+            <p:commandButton action="#{baseController.jaasLogout()}"
                              value="Logout"
                              icon="ui-icon-power" ajax="false">
             </p:commandButton>

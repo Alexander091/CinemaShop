@@ -19,7 +19,7 @@ import java.util.List;
  */
 @ManagedBean(name = "showingViewController")
 @ViewScoped
-public class ShowingViewController {
+public class ShowingViewController{
 
     @EJB
     private CommonDAO commonDAO;

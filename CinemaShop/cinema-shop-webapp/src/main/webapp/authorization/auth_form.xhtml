@@ -20,26 +20,23 @@
                              tabindex="1"
                              label="J_username"
                              placeholder="Login"
+                             value="#{baseController.login}"
                              requiredMessage="You must enter a username">
                 </p:inputText>
                 <p:message for="j_username" display="icon"/>
                 <p:outputLabel for="j_password" value="Password" />
-                <p:password id="j_password" required="true" tabindex="2"
-                            placeholder="password"
-                            validatorMessage="Password length of 6 to 50 characters"
-                            requiredMessage="Password length of 6 to 50 characters">
-                    <f:validateLength minimum="6" maximum="50" />
-                </p:password>
-                <p:message for="j_password" display="icon"/>
+                <p:password id="j_password"
+                            required="true"
+                            value="#{baseController.password}"
+                            feedback="true"
+                            placeholder="Password"/>
                 <f:facet name="footer">
                     <div align="center">
                         <p:commandButton id="submit" value="Log in"
                                          validateClient="true"
                                          tabindex="3"
-                                         onclick='j_security_check'
+                                         actionListener="#{baseController.checkLogin}"
                                          ajax="true" update="grid" />
-                        <p:button outcome="/index.xhtml" value="Cancel"
-                                  tabindex="4"/>
                     </div>
                 </f:facet>
                 <!--disabled="#{not facesContext.postback or facesContext.validationFailed}"-->

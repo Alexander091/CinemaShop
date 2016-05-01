@@ -15,7 +15,7 @@ import java.util.Date;
  * Created by Alexander on 01-May-16.
  */
 @ManagedBean(name = "creatorShowingController")
-public class CreatorShowingController {
+public class CreatorShowingController{
 
     private Date start;
     private Long hallId;
