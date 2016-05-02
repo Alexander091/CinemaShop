@@ -32,11 +32,13 @@
                     <p:column headerText="Hall - movie">
                         <h:outputText value="#{showing.hall.name}"/>
                     </p:column>
-
                     <p:column headerText="Start">
                         <h:outputFormat value="{0, date, MM/dd/yyyy HH:mm}">
                             <f:param value="#{showing.start}" />
                         </h:outputFormat>
+                    </p:column>
+                    <p:column headerText="Occupation">
+                        <h:outputText value="#{showingManagerController.getOccupation(showing)}"/>
                     </p:column>
                 </p:dataTable>
             </h:form>

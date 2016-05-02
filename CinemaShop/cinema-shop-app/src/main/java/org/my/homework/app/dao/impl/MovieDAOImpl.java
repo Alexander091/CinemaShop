@@ -41,7 +41,7 @@ public class MovieDAOImpl extends CommonDAOImpl<Movie> implements MovieDAO {
                 .setParameter("stDate", startDate)
                 .setParameter("edDate", endTime)
                 .list();
-
+        session.close();
         return movies;
     }
 }

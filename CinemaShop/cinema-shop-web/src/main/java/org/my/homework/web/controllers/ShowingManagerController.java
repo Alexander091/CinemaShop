@@ -4,6 +4,7 @@ import org.my.homework.app.dao.CommonDAO;
 import org.my.homework.app.dao.MovieDAO;
 import org.my.homework.app.dao.ShowingDAO;
 import org.my.homework.app.entities.Hall;
+import org.my.homework.app.entities.HallRow;
 import org.my.homework.app.entities.Movie;
 import org.my.homework.app.entities.Showing;
 import org.primefaces.context.RequestContext;
@@ -102,5 +103,14 @@ public class ShowingManagerController extends BaseTableController<Showing> {
                 break;
             }
         }
+    }
+
+    public String getOccupation(Showing showing){
+        int totalSeats = 0;
+        for (HallRow hall: showing.getHall().getHallRows() ) {
+            totalSeats+=hall.getSeats().size();
+        }
+        return showing.getTickets().size() + "/" + totalSeats;
+
     }
 }

@@ -42,7 +42,7 @@ public class ShowingDAOImpl extends CommonDAOImpl<Showing> {
                 .setParameter("stDate", startDate)
                 .setParameter("edDate", endTime)
                 .list();
-
+        session.close();
         return showings;
     }
 
